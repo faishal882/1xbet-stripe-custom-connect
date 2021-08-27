@@ -42,7 +42,7 @@ export const authLogin = (email, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/rest-auth/login/", {
+      .post("https://betting-app-1xbet.herokuapp.com/rest-auth/login/", {
         email: email,
         password: password,
       })
@@ -64,11 +64,14 @@ export const authSignup = (email, password1, password2) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post("http://127.0.0.1:8000/rest-auth/registration/", {
-        email: email,
-        password1: password1,
-        password2: password2,
-      })
+      .post(
+        "https://betting-app-1xbet.herokuapp.com/rest-auth/registration/",
+        {
+          email: email,
+          password1: password1,
+          password2: password2,
+        }
+      )
       .then((res) => {
         const token = res.data.key,
           expirationDate = new Date(new Date().getTime() + 3600 * 1000);
@@ -96,11 +99,14 @@ export const authPasswordChange = (
     };
     console.log(localStorage.getItem("token"));
     axios
-      .post("http://127.0.0.1:8000/rest-auth/password/change/", {
-        old_password: old_password,
-        new_password1: new_password1,
-        new_password2: new_password2,
-      })
+      .post(
+        "https://betting-app-1xbet.herokuapp.com/rest-auth/password/change/",
+        {
+          old_password: old_password,
+          new_password1: new_password1,
+          new_password2: new_password2,
+        }
+      )
       .then((res) => {
         // dispatch(authSuccess(token));
         console.log(res);
@@ -121,7 +127,7 @@ export const authUserProfile = (first_name, last_name) => {
     };
     console.log(localStorage.getItem("token"));
     axios
-      .post("http://127.0.0.1:8000/rest-auth/user/", {
+      .post("https://betting-app-1xbet.herokuapp.com/rest-auth/user/", {
         first_name: first_name,
         last_name: last_name,
       })

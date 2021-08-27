@@ -53,18 +53,21 @@ function AccountSettings() {
         Authorization: "Token " + localStorage.getItem("token"),
       };
       axios
-        .post("http://127.0.0.1:8000/payments/connect-account/", {
-          accountNo: accountNo,
-          routingNo: routingNo,
-          idNo: idNo,
-          state: state,
-          city: city,
-          postalcode: postalcode,
-          address: address,
-          year: year,
-          month: month,
-          day: month,
-        })
+        .post(
+          "https://betting-app-1xbet.herokuapp.com/payments/connect-account/",
+          {
+            accountNo: accountNo,
+            routingNo: routingNo,
+            idNo: idNo,
+            state: state,
+            city: city,
+            postalcode: postalcode,
+            address: address,
+            year: year,
+            month: month,
+            day: month,
+          }
+        )
         .then((res) => {
           console.log(res);
         })

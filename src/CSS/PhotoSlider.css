@@ -1,0 +1,17 @@
+.slider {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 73%;
+    /* background-color: #fff; */
+    height: 350px;
+    margin: 2.5px;
+    margin-right: 10px;
+    margin-top: 72px;
+    outline: 1px solid #34679a;
+}
+
+.d-block {
+    width: 979px;
+    height: 350px;
+    object-fit: cover;
+}

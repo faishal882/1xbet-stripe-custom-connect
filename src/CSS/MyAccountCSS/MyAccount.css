@@ -1,0 +1,58 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.my-account {
+  display: flex;
+  flex-direction: row;
+}
+
+.my-account-options {
+  box-sizing: border-box;
+  width: 25%;
+  background: #1a486ee8;
+  min-height: 750px;
+  margin: 2.5px;
+  margin-left: 5px;
+  margin-top: 60px;
+  padding-right: 0;
+}
+
+.options-body {
+  box-sizing: border-box;
+  width: 73%;
+  background-color: #fff;
+  min-height: 750px;
+  margin: 2.5px;
+  margin-left: 7px;
+  margin-top: 60px;
+}
+
+.my-account-link {
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 450;
+  padding: 14px 50px;
+  text-decoration: none;
+  color: #fcfcfc;
+  text-align: left;
+  border: none;
+  background: #1a486ee8;
+}
+
+.my-account-link:hover,
+.my-account-link:active {
+  width: 100%;
+  border-left: 4px solid rgb(81, 164, 230);
+  background-color: rgb(24, 63, 93);
+  color: rgb(252, 252, 252);
+}
+
+.active:focus {
+  border-left: 4px solid rgb(81, 164, 230);
+  background-color: rgb(24, 63, 93);
+  color: rgb(252, 252, 252);
+  margin-right: 0px;
+}

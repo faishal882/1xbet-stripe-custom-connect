@@ -1,0 +1,10 @@
+.bets-section {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4px;
+    width: 30%;
+    background-color: #fff;
+    height: 500px;
+    margin: 15px;
+    margin-right: 20px;
+}

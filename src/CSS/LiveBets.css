@@ -1,0 +1,32 @@
+.livebets {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 67%;
+    background-color: #fff;
+    height: 500px;
+    margin: 15px;
+    margin-left: 20px;
+}
+
+.livebets-header {
+    box-sizing: border-box;
+    width: 100%;
+    background: #4988B9;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 7px;
+    padding-left: 20px;
+    text-align: left;
+    border: 1.5px solid #0c314e;
+}
+
+.livebets-sports {
+    box-sizing: border-box;
+    width: 100%;
+    background: #1B5785;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    text-align: left;
+}

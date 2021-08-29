@@ -1,0 +1,34 @@
+.stripe-form {
+    box-sizing: border-box;
+    width: 90%;
+    height: 200px;
+    margin: 15px;
+    margin-top: 72px;
+    outline: 2px solid #34679a;
+}
+
+.form-row {
+ margin: 0px 20px;
+ margin-bottom: 20px;
+}
+
+.card-input {
+ margin: 15px;
+}
+.card-errors {
+ color: red;
+ font-size: 13px;
+ margin-top: 15px;
+}
+.submit-btn {
+    color: #fff;
+    width: 90%;
+    height: 35px;
+    border: 1px solid #23507d;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    background-color: #79a430;
+    text-transform: uppercase;
+    box-shadow: inset 0 -0.28571em #526e1f;
+}

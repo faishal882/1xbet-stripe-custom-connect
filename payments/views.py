@@ -1,11 +1,12 @@
-from django.http import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.decorators import login_required
 import stripe
 import time
-import os
+# import os
 from django.conf import settings
+from .models import Payment
+from .serializers import PaymentSerializer
 
 stripe.api_key = settings.STRIPE_API_KEY
 stripe.client_id = settings.STRIPE_CLIENT_ID,
@@ -75,71 +76,110 @@ def get_custom_account(request):
 
 
 @api_view(['POST'])
-def test_payment(request):
-    test_payment_intent = stripe.PaymentIntent.create(
-        amount=5000, currency='inr',
-        payment_method_types=['card'],
-        receipt_email='123@gmail.com')
-    data = test_payment_intent
-    return Response(data)
-
-
-@api_view(['POST'])
-def save_stripe_info(request):
+# @login_required
+def accept_payment(request):
     data = request.data
-    email = data['email']
-    payment_method_id = data['payment_method_id']
-    extra_msg = ''  # add new variable to response message
-    # checking if customer with provided email already exists
-    customer_data = stripe.Customer.list(email=email).data
+    payment = Payment(email="123@gmail.com", Amount="200")
+    payment.save()
+    customer = stripe.Customer.create(
+        email=request.user.email, payment_method=data['payment_method_id'])
+    payment_intent = stripe.PaymentIntent.create(
+        customer=customer,
+        payment_method=data['payment_method_id'],
+        currency="usd",
+        amount=data["amount"],
+        confirmation_method='manual',
+        confirm=True
+    )
+    return Response({'clientSecret': payment_intent.client_secret})
 
 
-    if len(customer_data) == 0:
-        # creating customer
-        customer = stripe.Customer.create(
-            email=email, payment_method=payment_method_id)
-    else:
-        customer = customer_data[0]
-        extra_msg = "Customer already existed."
-        stripe.PaymentIntent.create(
-            customer=customer,
-            payment_method=payment_method_id,
-            currency='inr',  # you can provide any currency you want
-            amount=200000,
-            confirmation_method='manual',
-            confirm=True,
-        )
-    return Response(
-        data={'message': 'Success', 'data': {
-            'customer_id': customer.id, 'extra_msg': extra_msg}
-        })
+@api_view(['POST', 'GET'])
+def upload_identity_verification_file(request):
+    with open("static\success.png", "rb") as fp:
+        res = stripe.FileUpload.create(purpose='identity_document',
+                                       file=fp,
+                                       stripe_account="acct_1JS4YBSI9UpzGNLz")
+        verification_id = res["id"]
+
+        res = stripe.Account.modify('acct_1JS4YBSI9UpzGNLz',
+                                    individual={
+                                        "verification": {
+                                            "document": {
+                                                "front": verification_id
+                                            }
+                                        }
+                                    })
+
+        print(res)
+
+    return Response(res)
 
 
+# @api_view(['POST'])
+# def save_amount(request):
+#     if request.method == 'POST':
+#         serializer = PaymentSerializer(data=request.data)  
+#         data = {}
+#         if serializer.is_valid():
+#             payment = serializer.save()            
+#             data['response'] = 'succesfully register new user'
+#             data['email'] = "fm@gmail.com"            
+#             data["Amount"] = 200   
+#             data["BetSlip"] = "India Vs Pakistan"
+#             data["Odds"] = 2.89
+#         else:
+#             data = serializer.errors
+#         return Response(data)
 
 
+# @api_view(['POST'])
+# def save_amount(request):
+#     if request.method == 'POST':
+#         serializer = PaymentSerializer(data=request.data)
+#         data = {}
+#         if serializer.is_valid():
+#             payment = serializer.save()
+#             data['response'] = 'succesfully register new user'
+#             data['email'] = "fm@gmail.com"
+#             data["Amount"] = 200
+#             data["BetSlip"] = "India Vs Pakistan"
+#             data["Odds"] = 2.89
+#         else:
+#             data = serializer.errors
+#         return Response(data)
 
-# @api_view(['POST', 'GET'])
-# def upload_identity_verification_file(request):
-#     with open("static\success.png", "rb") as fp:
-#         res = stripe.FileUpload.create(purpose='identity_document',
-#                                        file=fp,
-#                                        stripe_account="acct_1JS4YBSI9UpzGNLz")
-#         verification_id = res["id"]
 
-#         res = stripe.Account.modify('acct_1JS4YBSI9UpzGNLz',
-#                                     individual={
-#                                         "verification": {
-#                                             "document": {
-#                                                 "front": verification_id
-#                                             }
-#                                         }
-#                                     })
-
-#         print(res)
-
-#     return Response(res)
-
-    # if the array is empty it means the email has not been used yet
+# @api_view(['POST'])
+# def save_stripe_info(request):
+#     data = request.data
+#     extra_msg = ''
+#     customer_data = stripe.Customer.list(email=data['email']).data
+#     if len(customer_data) == 0:
+#         customer = stripe.Customer.create(
+#             email=data['email'], payment_method=data['payment_method_id'])
+#         stripe.PaymentIntent.create(
+#             customer=customer,
+#             payment_method=data['payment_method_id'],
+#             currency='inr',  # you can provide any currency you want
+#             amount=200000,
+#             confirm=True
+#         )
+#     else:
+#         customer = customer_data[0]
+#         extra_msg = "Customer already existed."
+#         stripe.PaymentIntent.create(
+#             customer=customer,
+#             payment_method=payment_method_id,
+#             currency='inr',  # you can provide any currency you want
+#             amount=200000,
+#             confirmation_method='manual',
+#             confirm=True,
+#         )
+#     return Response(
+#         data={'message': 'Success', 'data': {
+#             'customer_id': customer.id, 'extra_msg': extra_msg}
+#         })
 
 
 # @api_view(['POST'])

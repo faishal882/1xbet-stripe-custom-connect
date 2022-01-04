@@ -4,9 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js/pure";
 import CheckoutForm from "./Payments/CheckoutForm";
 
-const stripePromise = loadStripe(
-  "pk_test_51JSmb6SG3mGdVODu4Tim4cgYVmxzIfKalNNTNVUPbsbL5xgQohY6sENq9UzIbKfn2HtDQWPeLf1UoO5la8vdbRPT00OZWhRYfj"
-);
+const stripePromise = loadStripe("<STRIPE_PUBLISHABLE_KEY>");
 
 function BetsSection() {
   return (

@@ -201,9 +201,9 @@ JAZZMIN_SETTINGS = {
 
 JAZZMIN_SETTINGS["show_ui_builder"] = True
 
-STRIPE_API_KEY = "sk_test_51JSmb6SG3mGdVODuOSMVW67VAv0kg62BmsKsMlHVWykLmb8YsYyTZMHt8GNIEpOwzBSuTJ994hLoWZaJ9n03SlJx00Tf5NXiAD"
+STRIPE_API_KEY = "<STRIPE_SECRET_KEY>"
 
-STRIPE_CLIENT_ID = "ca_K70nLOhKzf8MZpsUp9gNxdTFSzyOXwsx"
+STRIPE_CLIENT_ID = "<STRIPE_CLIENT_ID>"
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
